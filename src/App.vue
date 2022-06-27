@@ -1,26 +1,52 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <QuickTime />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import QuickTime from '@/components/QuickTime.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    QuickTime
+  },
+  methods: {
+    generatePattern () {
+      this.$store.dispatch('randomAmount', 12)
+
+      const amount = this.$store.state.amount
+      const keyCode = this.$store.state.keyCode
+      const keyIcon = this.$store.state.keyIcon
+      for (let i = 0; i < amount; i++) {
+        const rnd = Math.floor((Math.random() * keyCode.length))
+        this.$store.dispatch('setUpKeypattern', { no: i, key: keyCode[rnd], icon: keyIcon[rnd] })
+      }
+    }
+  },
+  mounted () {
+    window.addEventListener('DOMContentLoaded', this.generatePattern)
   }
 }
 </script>
 
 <style>
+* {
+  box-sizing: border-box;
+  user-select: none;
+}
+
+body, html {
+  top: 0;
+  margin: 0;
+  overflow: hidden;
+  min-height: 100%;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  display: block;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  transition: opacity 100ms;
 }
 </style>
