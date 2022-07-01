@@ -1,7 +1,7 @@
 <template>
   <div class="counter">
-    <h1 style="color: green">Success : {{ $store.getters.getSuccessPoint }}</h1>
-    <h1 style="color: red">Attempt : {{ $store.getters.getAttemptPoint }}</h1>
+    <h1 style="color: green">Success : {{ getSuccess() }}</h1>
+    <h1 style="color: red">Attempt : {{ getAttempt() }}</h1>
   </div>
   <QuickTime />
 </template>
@@ -13,6 +13,24 @@ export default {
   name: 'App',
   components: {
     QuickTime
+  },
+  methods: {
+    getSuccess () {
+      if (this.$store.state.success === 10) {
+        this.$store.dispatch('setSuccessPoint', 0)
+        this.$store.dispatch('setAttemptPoint', 0)
+        return this.$store.getters.getSuccessPoint
+      }
+      return this.$store.getters.getSuccessPoint
+    },
+    getAttempt () {
+      if (this.$store.state.attempt > 5) {
+        this.$store.dispatch('setSuccessPoint', 0)
+        this.$store.dispatch('setAttemptPoint', 0)
+        return this.$store.getters.getAttemptPoint
+      }
+      return this.$store.getters.getAttemptPoint
+    }
   }
 }
 </script>

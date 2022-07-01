@@ -40,6 +40,12 @@ export default createStore({
     }
   },
   mutations: {
+    setSuccessPoint (state, point) {
+      state.success = point
+    },
+    setAttemptPoint (state, point) {
+      state.attempt = point
+    },
     successKey (state) {
       state.success++
     },
@@ -77,6 +83,12 @@ export default createStore({
     },
     randomAmount ({ commit }, range) {
       commit('randomAmount', range)
+    },
+    setSuccessPoint ({ commit }, point) {
+      commit('setSuccessPoint', point)
+    },
+    setAttemptPoint ({ commit }, point) {
+      commit('setAttemptPoint', point)
     }
   }
 })
